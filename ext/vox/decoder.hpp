@@ -278,7 +278,7 @@ namespace etf
             const uint8_t sign = read8();
             const char *buff = read_string(length);
 
-            auto flags = INTEGER_PACK_LITTLE_ENDIAN | (sign * INTEGER_PACK_NEGATIVE);
+            int flags = INTEGER_PACK_LITTLE_ENDIAN | (sign * INTEGER_PACK_NEGATIVE);
             return rb_integer_unpack(buff, length, 1, 0, flags);
         }
 

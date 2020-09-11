@@ -57,13 +57,23 @@ namespace etf
                 encode_hash(input);
                 break;
             default:
-                rb_raise(rb_eArgError, "Unsupported serialization type");
+                if (rb_respond_to(input, rb_intern("to_hash")))
+                {
+                    VALUE hash = rb_funcall(input, rb_intern("to_hash"), 0);
+                    Check_Type(hash, T_HASH);
+                    encode_hash(hash);
+                }
+                else
+                {
+                    rb_raise(rb_eArgError, "Unsupported serialization type");
+                }
+
                 break;
             }
         }
 
         VALUE
-        r_string(void)
+        r_string()
         {
             return rb_str_new(erl_buff->buf, erl_buff->length);
         }

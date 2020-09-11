@@ -158,12 +158,12 @@ namespace etf
             return val;
         }
 
-        VALUE decode_small_integer(void)
+        VALUE decode_small_integer()
         {
             return INT2FIX(read8());
         }
 
-        VALUE decode_integer(void)
+        VALUE decode_integer()
         {
             return INT2NUM(read32());
         }

@@ -3,10 +3,6 @@
 #include "decoder.hpp"
 #include "etf.hpp"
 
-// Decode an ETF term from a ruby string
-// @param self [Object] Vox::ETF
-// @param input [Rice::String] The ETF term to be decoded.
-// @return [Rice::Object] Whatever the term is, as a ruby object.
 VALUE decode(VALUE self, VALUE input)
 {
     Check_Type(input, T_STRING);

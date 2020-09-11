@@ -156,8 +156,7 @@ namespace etf
 
         void encode_symbol(VALUE symbol)
         {
-            VALUE str = rb_sym2str(symbol);
-            erlpack_append_atom_utf8(erl_buff, RSTRING_PTR(str), RSTRING_LEN(str));
+            encode_string(rb_sym2str(symbol));
         }
 
         void encode_string(VALUE string)
@@ -175,10 +174,7 @@ namespace etf
             {
                 VALUE key = RARRAY_AREF(keys, index / 2);
                 // Normalize keys to strings because discord
-                if (TYPE(key) == T_SYMBOL)
-                    encode_object(rb_sym2str(key));
-                else
-                    encode_object(key);
+                encode_object(key);
                 encode_object(rb_hash_aref(hash, key));
             }
         }

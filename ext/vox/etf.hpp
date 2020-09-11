@@ -1,14 +1,11 @@
 #pragma once
 
-#include "rice/Module.hpp"
-#include "rice/Class.hpp"
-#include "rice/Hash.hpp"
 #include "./etf_reader.hpp"
 
 #define ETF_VERSION 131
 
 // Term IDs, first byte of any term.
-enum class term
+enum term
 {
     new_float = 70,
     bit_binary = 77,
@@ -43,17 +40,19 @@ enum class term
     small_atom_utf8 = 119
 };
 
-Rice::Object decode(Rice::Object self, Rice::String input);
-inline Rice::Array decode_small_tuple(etf_reader *reader);
-inline Rice::Array decode_large_tuple(etf_reader *reader);
-inline Rice::Hash decode_map(etf_reader *reader);
-inline Rice::Array decode_list(etf_reader *reader);
-inline Rice::String decode_binary(etf_reader *reader);
-inline Rice::String decode_string(etf_reader *reader);
-inline Rice::Symbol decode_atom(etf_reader *reader);
-inline Rice::Symbol decode_small_atom(etf_reader *reader);
-inline Rice::Object decode_small_bignum(etf_reader *reader);
-inline Rice::Object decode_large_bignum(etf_reader *reader);
+VALUE decode(VALUE self, VALUE input);
+inline VALUE decode_small_tuple(etf_reader *reader);
+inline VALUE decode_large_tuple(etf_reader *reader);
+inline VALUE decode_map(etf_reader *reader);
+inline VALUE decode_list(etf_reader *reader);
+inline VALUE decode_binary(etf_reader *reader);
+inline VALUE decode_string(etf_reader *reader);
+inline VALUE decode_atom(etf_reader *reader);
+inline VALUE decode_small_atom(etf_reader *reader);
+inline VALUE decode_small_bignum(etf_reader *reader);
+inline VALUE decode_large_bignum(etf_reader *reader);
+
+VALUE encode(VALUE self, VALUE input);
 
 // Setup function for ruby FFI.
 extern "C" void Init_etf();

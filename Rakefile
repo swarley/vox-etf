@@ -11,4 +11,5 @@ Rake::ExtensionTask.new('etf') do |ext|
   ext.lib_dir = 'lib/vox'
 end
 
-task(default: :compile)
+task(default: :spec)
+task spec: ['compile']

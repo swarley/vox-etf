@@ -1,4 +1,5 @@
 #include "erlpack/encoder.h"
+#include "erlpack/constants.h"
 #include "etf.hpp"
 
 namespace etf
@@ -101,7 +102,7 @@ namespace etf
             {
                 // id byte | n byte | sign byte | data
                 uint8_t buff[3 + byte_count];
-                buff[0] = term::small_big;
+                buff[0] = SMALL_BIG_EXT;
                 buff[1] = byte_count;
                 buff[2] = FIX2LONG(bignum) >= 0 ? 0 : 1;
                 rb_integer_pack(bignum, buff + 3, byte_count, sizeof(uint8_t), 0, INTEGER_PACK_LITTLE_ENDIAN);
@@ -111,7 +112,7 @@ namespace etf
             {
                 // id byte | 4 byte n | sign byte | data
                 uint8_t buff[6 + byte_count];
-                buff[0] = term::large_big;
+                buff[0] = LARGE_BIG_EXT;
                 _erlpack_store32(buff + 1, byte_count);
                 buff[5] = RBIGNUM_SIGN(bignum) ? 0 : 1;
                 rb_integer_pack(bignum, buff + 6, byte_count, sizeof(uint8_t), 0, INTEGER_PACK_LITTLE_ENDIAN);

@@ -156,7 +156,7 @@ namespace etf
             VALUE array = decode_array(length);
             const uint8_t tail = read8();
 
-            if (tail != term::nil)
+            if (tail != NIL_EXT)
             {
                 rb_raise(rb_eArgError, "List doesn't end with `NIL`, but it must!");
                 return Qnil;

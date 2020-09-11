@@ -1,6 +1,7 @@
 #include "erlpack/encoder.h"
 #include "erlpack/constants.h"
 #include "etf.hpp"
+#include "ruby.h"
 
 namespace etf
 {
@@ -173,7 +174,11 @@ namespace etf
             for (uint32_t index = 0; index < size * 2; index += 2)
             {
                 VALUE key = RARRAY_AREF(keys, index / 2);
-                encode_object(key);
+                // Normalize keys to strings because discord
+                if (TYPE(key) == T_SYMBOL)
+                    encode_object(rb_sym2str(key));
+                else
+                    encode_object(key);
                 encode_object(rb_hash_aref(hash, key));
             }
         }

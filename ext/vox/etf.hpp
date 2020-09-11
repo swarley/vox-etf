@@ -1,7 +1,5 @@
 #pragma once
 
-#include "./etf_reader.hpp"
-
 #define ETF_VERSION 131
 
 // Term IDs, first byte of any term.
@@ -41,17 +39,6 @@ enum term
 };
 
 VALUE decode(VALUE self, VALUE input);
-inline VALUE decode_small_tuple(etf_reader *reader);
-inline VALUE decode_large_tuple(etf_reader *reader);
-inline VALUE decode_map(etf_reader *reader);
-inline VALUE decode_list(etf_reader *reader);
-inline VALUE decode_binary(etf_reader *reader);
-inline VALUE decode_string(etf_reader *reader);
-inline VALUE decode_atom(etf_reader *reader);
-inline VALUE decode_small_atom(etf_reader *reader);
-inline VALUE decode_small_bignum(etf_reader *reader);
-inline VALUE decode_large_bignum(etf_reader *reader);
-
 VALUE encode(VALUE self, VALUE input);
 
 // Setup function for ruby FFI.

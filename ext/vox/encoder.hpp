@@ -137,12 +137,20 @@ namespace etf
 
         void encode_array(VALUE array)
         {
-            erlpack_append_list_header(erl_buff, RARRAY_LEN(array));
             uint32_t size = RARRAY_LEN(array);
+            if (size == 0)
+            {
+                erlpack_append_nil_ext(erl_buff);
+                return;
+            }
+
+            erlpack_append_list_header(erl_buff, size);
             for (uint32_t index = 0; index < size; index++)
             {
                 encode_object(RARRAY_AREF(array, index));
             }
+
+            erlpack_append_nil_ext(erl_buff);
         }
 
         void encode_symbol(VALUE symbol)

@@ -1,8 +1,4 @@
-# Vox::Etf
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/vox/etf`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+# Vox::ETF
 
 ## Installation
 
@@ -22,17 +18,24 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the encoder/decoder independently use the respective `#encode` and `#decode` methods.
 
-## Development
+```ruby
+    require 'vox/etf'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    p Vox::ETF.decode("\x83l\x00\x00\x00\x03a\x01a\x02a\x03j")
+    # => [1, 2, 3]
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    p Vox::ETF.encode({foo: "bar"})
+    # => "\x83t\x00\x00\x00\x01w\x03foom\x00\x00\x00\x03bar"
+```
+
+
+To use with the Vox gateway, add this gem to your Gemfile and provide `:etf` as the encoding option to `Vox::Gateway::Client#initialize`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/vox-etf. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/vox-etf/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/swarley/vox-etf. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/swarley/vox-etf/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require('mkmf-rice')
+require('mkmf')
 
 find_header('ruby.h')
 find_header('zlib.h')

@@ -364,7 +364,7 @@ namespace etf
 
             uint64_t source_size = decompressed_size;
             uint8_t *out_buffer = (uint8_t *)malloc(decompressed_size);
-            const int ret = uncompress(out_buffer, &source_size, (const unsigned char *)(data + offset), (uint64_t)(size - offset));
+            const int ret = uncompress(out_buffer, &source_size, (const unsigned char *)(data + offset), (uLong)(size - offset));
 
             offset += source_size;
             if (ret != Z_OK)

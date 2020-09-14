@@ -99,11 +99,11 @@ namespace etf
 
         void encode_fixnum(VALUE fixnum)
         {
-            long l = FIX2LONG(fixnum);
-            if (l > 0 && l <= 0xFF)
-                erlpack_append_small_integer(erl_buff, (unsigned char)l);
+            uint32_t n = NUM2UINT(fixnum);
+            if (n > 0 && n <= UINT8_MAX)
+                erlpack_append_small_integer(erl_buff, (uint8_t)n);
             else
-                erlpack_append_integer(erl_buff, l);
+                erlpack_append_integer(erl_buff, n);
         }
 
         void encode_bignum(VALUE bignum)
@@ -138,15 +138,20 @@ namespace etf
 
         void encode_array(VALUE array)
         {
-            uint32_t size = RARRAY_LEN(array);
+            uint64_t size = RARRAY_LEN(array);
             if (size == 0)
             {
                 erlpack_append_nil_ext(erl_buff);
                 return;
             }
+            else if (size > UINT32_MAX)
+            {
+                rb_raise(rb_eRangeError, "Array size is too large to fit into a 32 bit integer.");
+                return;
+            }
 
             erlpack_append_list_header(erl_buff, size);
-            for (uint32_t index = 0; index < size; index++)
+            for (size_t index = 0; index < size; index++)
             {
                 encode_object(RARRAY_AREF(array, index));
             }
@@ -166,7 +171,13 @@ namespace etf
 
         void encode_hash(VALUE hash)
         {
-            uint32_t size = RHASH_SIZE(hash);
+            uint64_t size = RHASH_SIZE(hash);
+            if (size > UINT32_MAX)
+            {
+                rb_raise(rb_eRangeError, "Hash size is too large to fit into a 32 bit integer");
+                return;
+            }
+
             erlpack_append_map_header(erl_buff, size);
             VALUE keys = rb_funcall(hash, rb_intern("keys"), 0);
 

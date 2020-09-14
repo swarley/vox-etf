@@ -360,6 +360,7 @@ namespace etf
 
         VALUE decode_compressed()
         {
+#if HAVE_Z
             const uint32_t decompressed_size = read32();
 
             unsigned long source_size = decompressed_size;
@@ -378,6 +379,10 @@ namespace etf
             VALUE value = decompressed.decode_term();
             free(out_buffer);
             return value;
+#else
+            rb_raise(rb_eArgError, "vox-etf was compiled without zlib support can cannot decode the compressed term.");
+            return Qnil;
+#endif
         }
     };
 } // namespace etf

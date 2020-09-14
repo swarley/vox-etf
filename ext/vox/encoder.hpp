@@ -1,6 +1,6 @@
 #include "erlpack/encoder.h"
 #include "erlpack/constants.h"
-#include "etf.hpp"
+#include "./etf.hpp"
 #include "ruby.h"
 
 namespace etf

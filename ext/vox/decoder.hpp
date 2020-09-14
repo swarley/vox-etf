@@ -1,5 +1,6 @@
 #pragma once
 #include <zlib.h>
+#include "./etf.hpp"
 #include "ruby.h"
 #include "erlpack/sysdep.h"
 #include "erlpack/constants.h"
@@ -360,7 +361,7 @@ namespace etf
 
         VALUE decode_compressed()
         {
-#if HAVE_Z
+#if HAVE_ZLIB_H
             const uint32_t decompressed_size = read32();
 
             unsigned long source_size = decompressed_size;

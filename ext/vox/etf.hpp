@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./extconf.h"
 #define ETF_VERSION 131
 
 VALUE decode(VALUE self, VALUE input);

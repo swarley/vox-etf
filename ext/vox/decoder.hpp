@@ -362,7 +362,7 @@ namespace etf
         {
             const uint32_t decompressed_size = read32();
 
-            uint64_t source_size = decompressed_size;
+            unsigned long source_size = decompressed_size;
             uint8_t *out_buffer = (uint8_t *)malloc(decompressed_size);
             const int ret = uncompress(out_buffer, &source_size, (const unsigned char *)(data + offset), (uLong)(size - offset));
 
